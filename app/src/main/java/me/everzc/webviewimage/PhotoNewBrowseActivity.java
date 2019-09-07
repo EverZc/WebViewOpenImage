@@ -47,7 +47,6 @@ public class PhotoNewBrowseActivity extends AppCompatActivity {
     private FrameLayout flCurLayout;
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
