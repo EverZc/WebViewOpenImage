@@ -28,7 +28,7 @@ public class MJavascriptInterface {
         Intent intent = new Intent();
         intent.putExtra("imageUrls", imageUrls);
         intent.putExtra("curImageUrl", img);
-       // intent.setClass(context, PhotoNewBrowseActivity.class);
+        intent.setClass(context, PhotoNewBrowseActivity.class);
         context.startActivity(intent);
 
     }
