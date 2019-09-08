@@ -1,0 +1,20 @@
+.article-content pre{
+    white-space:normal
+}
+.article-content>div, .article-content{
+    font-size:18px;
+    line-height:27px;
+    color:#222;
+    word-wrap:break-word;
+    text-align:justify;
+    text-justify:inter-ideograph;
+    margin:10px 8px 10px 8px;
+
+}
+.article-content>div img, .article-content img{
+    margin:14px 0px 9px 0px;
+    max-width:99%;
+    padding:0.5px 0.5px 0.5px 0.5px;
+    border:solid 0.5px #f8f8f8;
+}
+
