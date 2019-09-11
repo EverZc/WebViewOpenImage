@@ -12,7 +12,6 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.ImageView;
 
-
 import com.blankj.utilcode.util.LogUtils;
 
 import java.util.ArrayList;
@@ -23,12 +22,11 @@ import java.util.Queue;
 /**
  * 手势图片控件
  *
- * @author clifford
  */
 @SuppressLint("AppCompatCustomView")
-public class PinchImageView extends ImageView {
+public class PinchImageViewBeifen extends ImageView {
 
-    public  static boolean bigbig=false;
+
     ////////////////////////////////配置参数////////////////////////////////
 
     /**
@@ -258,7 +256,7 @@ public class PinchImageView extends ImageView {
      */
     @Override
     public boolean canScrollHorizontally(int direction) {
-        if (mPinchMode == PinchImageView.PINCH_MODE_SCALE) {
+        if (mPinchMode == PinchImageViewBeifen.PINCH_MODE_SCALE) {
             return true;
         }
         RectF bound = getImageBound(null);
@@ -283,7 +281,7 @@ public class PinchImageView extends ImageView {
      */
     @Override
     public boolean canScrollVertically(int direction) {
-        if (mPinchMode == PinchImageView.PINCH_MODE_SCALE) {
+        if (mPinchMode == PinchImageViewBeifen.PINCH_MODE_SCALE) {
             return true;
         }
         RectF bound = getImageBound(null);
@@ -413,7 +411,7 @@ public class PinchImageView extends ImageView {
          * @see #getCurrentImageMatrix(Matrix)
          * @see #getImageBound(RectF)
          */
-        void onOuterMatrixChanged(PinchImageView pinchImageView);
+        void onOuterMatrixChanged(PinchImageViewBeifen pinchImageView);
     }
 
     /**
@@ -566,11 +564,11 @@ public class PinchImageView extends ImageView {
     protected float calculateNextScale(float innerScale, float outerScale) {
         float currentScale = innerScale * outerScale;
         if (currentScale < MAX_SCALE) {
-            bigbig = true;
+            MyConstant.bigbig = true;
             LogUtils.e("计算双击之后图片接下来应该被缩放的比例   最大了    ");
             return MAX_SCALE;
         } else {
-            bigbig= false;
+            MyConstant.bigbig= false;
             LogUtils.e("计算双击之后图片接下来应该被缩放的比例   返回吧    ");
             return innerScale;
         }
@@ -579,17 +577,17 @@ public class PinchImageView extends ImageView {
 
     ////////////////////////////////初始化////////////////////////////////
 
-    public PinchImageView(Context context) {
+    public PinchImageViewBeifen(Context context) {
         super(context);
         initView();
     }
 
-    public PinchImageView(Context context, AttributeSet attrs) {
+    public PinchImageViewBeifen(Context context, AttributeSet attrs) {
         super(context, attrs);
         initView();
     }
 
-    public PinchImageView(Context context, AttributeSet attrs, int defStyle) {
+    public PinchImageViewBeifen(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         initView();
     }
@@ -778,14 +776,14 @@ public class PinchImageView extends ImageView {
     private FlingAnimator mFlingAnimator;
 
     private GestureDetector mG=
-            new GestureDetector(PinchImageView.this.getContext()
+            new GestureDetector(PinchImageViewBeifen.this.getContext()
                     , new GestureDetector.SimpleOnGestureListener() {
 
                 @Override
                 public boolean onSingleTapConfirmed(MotionEvent e) {
                     //触发点击
                     if (mOnClickListener != null) {
-                        mOnClickListener.onClick(PinchImageView.this);
+                        mOnClickListener.onClick(PinchImageViewBeifen.this);
                     }
                     LogUtils.e("mG  onSingleTapConfirmed");
                     return false;
@@ -807,7 +805,7 @@ public class PinchImageView extends ImageView {
      * <p>
      * 在onTEvent末尾被执行.
      */
-    private GestureDetector mGestureDetector = new GestureDetector(PinchImageView.this.getContext(), new GestureDetector.SimpleOnGestureListener() {
+    private GestureDetector mGestureDetector = new GestureDetector(PinchImageViewBeifen.this.getContext(), new GestureDetector.SimpleOnGestureListener() {
 
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             //只有在单指模式结束之后才允许执行fling
@@ -822,7 +820,7 @@ public class PinchImageView extends ImageView {
         public void onLongPress(MotionEvent e) {
             //触发长按
             if (mOnLongClickListener != null) {
-                mOnLongClickListener.onLongClick(PinchImageView.this);
+                mOnLongClickListener.onLongClick(PinchImageViewBeifen.this);
             }
             LogUtils.e("mGestureDetector  onLongPress");
         }
@@ -839,7 +837,7 @@ public class PinchImageView extends ImageView {
         public boolean onSingleTapConfirmed(MotionEvent e) {
             //触发点击
             if (mOnClickListener != null) {
-                mOnClickListener.onClick(PinchImageView.this);
+                mOnClickListener.onClick(PinchImageViewBeifen.this);
             }
             LogUtils.e("mGestureDetector  onSingleTapConfirmed");
             return false;
@@ -939,7 +937,7 @@ public class PinchImageView extends ImageView {
                     scale(mScaleCenter, mScaleBase, distance, mLastMovePoint);
                     LogUtils.e(" //处理缩放   return true");
                     LogUtils.e(" bigbig=true;");
-                   bigbig = true;
+                    MyConstant.bigbig = true;
                    //0.3 return true;
                 }
             }
@@ -1202,7 +1200,7 @@ public class PinchImageView extends ImageView {
         //如果缩放修正后整体导致第二层缩放小于1（就是图片比fit center状态还小），重新修正缩放
         if (outerScale * scalePost < 1f) {
             scalePost = 1f / outerScale;
-           bigbig = false;
+            MyConstant.bigbig = false;
             LogUtils.e("  //如果缩放修正后整体导致第二层缩放小于1（就是图片比fit center状态还小），重新修正缩放");
         }
         //如果缩放修正不为1，说明进行了修正
@@ -1413,7 +1411,7 @@ public class PinchImageView extends ImageView {
     }
 
 
-////////////////////////////////防止内存抖动复用对象///////////////////////////
+////////////////////////////////防止内存抖动复用对象////////////////////////////////
 
     /**
      * 对象池
@@ -1455,7 +1453,6 @@ public class PinchImageView extends ImageView {
          * 如果不归还,让然会发生内存抖动,但不会引起泄漏.
          *
          * @return 可用的对象
-         * @see #given(Object)
          */
         public T take() {
             //如果池内为空就创建一个

@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             />
     </LinearLayout>
-    <com.magicmoble.luzhouapp.mvp.ui.utils.PinchImageViewBeifen
+    <me.everzc.webviewimage.PinchImageViewBeifen
         android:id="@+id/image_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

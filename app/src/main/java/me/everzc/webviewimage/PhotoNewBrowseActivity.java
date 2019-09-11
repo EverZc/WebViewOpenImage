@@ -34,7 +34,7 @@ public class PhotoNewBrowseActivity extends AppCompatActivity {
 
     private int firstDisplayImageIndex = 0;
     private boolean newPageSelected = false;
-    private PinchImageView mCurImage;
+    private PinchImageViewBeifen mCurImage;
     private BaseAnimCloseViewPager imageViewPager;
     private List<String> pictureList;
     private String[] imageUrls = new String[]{};
@@ -110,10 +110,10 @@ public class PhotoNewBrowseActivity extends AppCompatActivity {
                 View layout;
                 layout = LayoutInflater.from(PhotoNewBrowseActivity.this).inflate(R.layout.layout_image_detail, null);
                 ImageView ivLoading= (ImageView) layout.findViewById(R.id.iv_imageView);
-                AnimationDrawable drawable= (AnimationDrawable) ivLoading.getBackground();
-                drawable.start();
+               // AnimationDrawable drawable= (AnimationDrawable) ivLoading.getBackground();
+              //  drawable.start();
 //                layout.setOnClickListener(onClickListener);
-               PinchImageView pinchImageView = (PinchImageView) layout.findViewById(R.id.image_detail);
+                PinchImageViewBeifen pinchImageView = (PinchImageViewBeifen) layout.findViewById(R.id.image_detail);
                pinchImageView.setOnClickListener(onClickListener);
                 container.addView(layout);
                 layout.setTag(position);
@@ -150,7 +150,7 @@ public class PhotoNewBrowseActivity extends AppCompatActivity {
             @Override
             public void onPageScrollStateChanged(int state) {
                // llLoading.setVisibility(View.VISIBLE);
-                LogUtils.e("onPageScrollStateChanged");
+
 
 
             }
@@ -219,7 +219,7 @@ public class PhotoNewBrowseActivity extends AppCompatActivity {
             return;
         }
         flCurLayout = (FrameLayout) currentLayout.findViewById(R.id.fl_actical);
-        mCurImage = (PinchImageView) currentLayout.findViewById(R.id.image_detail);
+        mCurImage = (PinchImageViewBeifen) currentLayout.findViewById(R.id.image_detail);
         imageViewPager.setCurrentShowView(flCurLayout);
     }
 
