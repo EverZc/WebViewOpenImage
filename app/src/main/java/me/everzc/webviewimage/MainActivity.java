@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         imageUrls = StringUtils.returnImageUrlsFromHtml(content);
         mWebView=findViewById(R.id.web_view);
-
         mWebView.setupBody(content);
         mWebView.addJavascriptInterface(new MJavascriptInterface(MainActivity.this, imageUrls),
                 "imagelistener");

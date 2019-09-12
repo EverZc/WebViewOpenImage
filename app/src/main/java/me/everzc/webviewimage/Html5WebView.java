@@ -187,16 +187,7 @@ public class Html5WebView extends WebView {
                             "}" +
                             "})()");
         }
-        private void imgReset(WebView webView) {
-            webView.loadUrl("javascript:(function(){" +
-                    "var objs = document.getElementsByTagName('img'); " +
-                    "for(var i=0;i<objs.length;i++)  " +
-                    "{"
-                    + "var img = objs[i];   " +
-                    "    img.style.maxWidth = '100%'; img.style.height = 'auto';  " +
-                    "}" +
-                    "})()");
-        }
+
     };
 
     WebChromeClient webChromeClient = new WebChromeClient() {

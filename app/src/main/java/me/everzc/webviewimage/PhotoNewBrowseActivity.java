@@ -110,9 +110,9 @@ public class PhotoNewBrowseActivity extends AppCompatActivity {
                 View layout;
                 layout = LayoutInflater.from(PhotoNewBrowseActivity.this).inflate(R.layout.layout_image_detail, null);
                 ImageView ivLoading= (ImageView) layout.findViewById(R.id.iv_imageView);
-               // AnimationDrawable drawable= (AnimationDrawable) ivLoading.getBackground();
-              //  drawable.start();
-//                layout.setOnClickListener(onClickListener);
+                AnimationDrawable drawable= (AnimationDrawable) ivLoading.getBackground();
+                drawable.start();
+               // layout.setOnClickListener(onClickListener);
                 PinchImageViewBeifen pinchImageView = (PinchImageViewBeifen) layout.findViewById(R.id.image_detail);
                pinchImageView.setOnClickListener(onClickListener);
                 container.addView(layout);
