@@ -8,13 +8,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by Administrator on 2017/2/9.
+ * Created by Zwj on 2019/9/16.
  */
 
 public class StringUtils {
     public static String[] returnImageUrlsFromHtml(String div) {
         List<String> imageSrcList = new ArrayList<String>();
         String htmlCode = returnExampleHtml(div);
+        //guolv
+
         Pattern p = Pattern.compile("<img\\b[^>]*\\bsrc\\b\\s*=\\s*('|\")?([^'\"\n\r\f>]+(\\.jpg|\\.bmp|\\.eps|\\.gif|\\.mif|\\.miff|\\.png|\\.tif|\\.tiff|\\.svg|\\.wmf|\\.jpe|\\.jpeg|\\.dib|\\.ico|\\.tga|\\.cut|\\.pic|\\b)\\b)[^>]*>", Pattern.CASE_INSENSITIVE);
         Matcher m = p.matcher(htmlCode);
         String quote = null;
@@ -34,6 +36,5 @@ public class StringUtils {
 
     public static String returnExampleHtml(String div){
         return div;
-
     }
 }

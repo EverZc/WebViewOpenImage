@@ -23,27 +23,25 @@ import com.blankj.utilcode.util.LogUtils;
 import com.bumptech.glide.Glide;
 
 
-
 import java.util.Arrays;
 import java.util.List;
 
 
 /**
+ * @Description: 图片详情查看界面
+ * @Author: ZhangChen
+ * @CreateDate: 2019/9/16 10:30
  */
 public class PhotoNewBrowseActivity extends AppCompatActivity {
-
     private int firstDisplayImageIndex = 0;
     private boolean newPageSelected = false;
     private PinchImageViewBeifen mCurImage;
     private BaseAnimCloseViewPager imageViewPager;
     private List<String> pictureList;
     private String[] imageUrls = new String[]{};
-    private int[] initialedPositions = null;
     PagerAdapter adapter;
     boolean canDrag = false;
-
     private String curImageUrl = "";
-
     private FrameLayout flCurLayout;
 
     @Override
@@ -63,12 +61,7 @@ public class PhotoNewBrowseActivity extends AppCompatActivity {
         firstDisplayImageIndex = returnClickedPosition();
         imageViewPager = (BaseAnimCloseViewPager) findViewById(R.id.viewpager);
         setViewPagerAdapter();
-
-
     }
-
-
-
 
     private int returnClickedPosition() {
         if (imageUrls == null || curImageUrl == null) {
@@ -109,19 +102,18 @@ public class PhotoNewBrowseActivity extends AppCompatActivity {
             public Object instantiateItem(ViewGroup container, int position) {
                 View layout;
                 layout = LayoutInflater.from(PhotoNewBrowseActivity.this).inflate(R.layout.layout_image_detail, null);
-                ImageView ivLoading= (ImageView) layout.findViewById(R.id.iv_imageView);
-                AnimationDrawable drawable= (AnimationDrawable) ivLoading.getBackground();
+                ImageView ivLoading = (ImageView) layout.findViewById(R.id.iv_imageView);
+                AnimationDrawable drawable = (AnimationDrawable) ivLoading.getBackground();
                 drawable.start();
-               // layout.setOnClickListener(onClickListener);
+                // layout.setOnClickListener(onClickListener);
                 PinchImageViewBeifen pinchImageView = (PinchImageViewBeifen) layout.findViewById(R.id.image_detail);
-               pinchImageView.setOnClickListener(onClickListener);
+                pinchImageView.setOnClickListener(onClickListener);
                 container.addView(layout);
                 layout.setTag(position);
                 if (position == firstDisplayImageIndex) {
                     onViewPagerSelected(position);
                 }
                 return layout;
-
             }
 
             @Override
@@ -149,10 +141,7 @@ public class PhotoNewBrowseActivity extends AppCompatActivity {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-               // llLoading.setVisibility(View.VISIBLE);
-
-
-
+                // llLoading.setVisibility(View.VISIBLE);
             }
         });
         imageViewPager.setiAnimClose(new BaseAnimCloseViewPager.IAnimClose() {
@@ -173,14 +162,12 @@ public class PhotoNewBrowseActivity extends AppCompatActivity {
         });
     }
 
-
-    View.OnClickListener onClickListener = new View.OnClickListener() {
+    private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             finishAfterTransition();
         }
     };
-
 
     private void onViewPagerSelected(int position) {
         updateCurrentImageView(position);
@@ -201,7 +188,7 @@ public class PhotoNewBrowseActivity extends AppCompatActivity {
             return;
         }
         canDrag = false;
-       // MyUtils.loadingGlide(PhotoNewBrowseActivity.this,path,mCurImage);
+        // MyUtils.loadingGlide(PhotoNewBrowseActivity.this,path,mCurImage);
         Glide.with(this).load(path).into(mCurImage);
     }
 
@@ -210,7 +197,6 @@ public class PhotoNewBrowseActivity extends AppCompatActivity {
         View currentLayout = imageViewPager.findViewWithTag(position);
         if (currentLayout == null) {
             ViewCompat.postOnAnimation(imageViewPager, new Runnable() {
-
                 @Override
                 public void run() {
                     updateCurrentImageView(position);
@@ -231,7 +217,5 @@ public class PhotoNewBrowseActivity extends AppCompatActivity {
         setResult(RESULT_OK, intent);
         super.finishAfterTransition();
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-
-
     }
 }

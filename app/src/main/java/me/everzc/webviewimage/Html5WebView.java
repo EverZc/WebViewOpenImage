@@ -45,8 +45,7 @@ public class Html5WebView extends WebView {
 
     private void init() {
         WebSettings mWebSettings = getSettings();
-//        mWebSettings.setDefaultFontSize(14); //设置的是默认字体大小
-
+        //mWebSettings.setDefaultFontSize(14); //设置的是默认字体大小
         mWebSettings.setSupportZoom(false); //支持缩放，默认为true。是下面那个的前提。
         mWebSettings.setBuiltInZoomControls(false);  //设置可以缩放
         mWebSettings.setDisplayZoomControls(false);  //隐藏原生的缩放控件
@@ -66,7 +65,6 @@ public class Html5WebView extends WebView {
         setWebChromeClient(webChromeClient);
         setWebViewClient(webViewClient);
     }
-
 
     public void setProgressChangedListener(OnProgressChangedListener mProgressChangedListener) {
         this.mProgressChangedListener = mProgressChangedListener;
@@ -98,7 +96,6 @@ public class Html5WebView extends WebView {
      */
     private void saveData(WebSettings mWebSettings) {
         //有时候网页需要自己保存一些关键数据,Android WebView 需要自己设置
-
         if (isConnected(mContext)) {
             mWebSettings.setCacheMode(WebSettings.LOAD_DEFAULT);//根据cache-control决定是否从网络上取数据。
         } else {
@@ -117,7 +114,6 @@ public class Html5WebView extends WebView {
     public void setupBody(String body) {
         // loadData(createBody(body),"text/html","UTF-8");
         loadDataWithBaseURL("", createBody(body), "text/html", "UTF-8", "");
-       // LogUtils.e("body : "+body);
     }
 
     private String createBody(String body) {
@@ -162,7 +158,6 @@ public class Html5WebView extends WebView {
         @Override
         public void onPageFinished(WebView view, String url) {
             view.getSettings().setJavaScriptEnabled(true);
-
             super.onPageFinished(view, url);
            // imgReset(view);//重置webview中img标签的图片大小
             addImageClickListener(view);//待网页加载完全后设置图片点击的监听方法
@@ -174,6 +169,10 @@ public class Html5WebView extends WebView {
             super.onPageStarted(view, url, favicon);
         }
 
+        /**
+         * 给当前图片添加点击事件 通过js回调方式。
+         * @param webView
+         */
         private void addImageClickListener(WebView webView) {
             webView.loadUrl(
                     "javascript:(function(){" +
@@ -220,8 +219,6 @@ public class Html5WebView extends WebView {
             callback.invoke(origin, true, false);//注意个函数，第二个参数就是是否同意定位权限，第三个是是否希望内核记住
             super.onGeolocationPermissionsShowPrompt(origin, callback);
         }
-        //=========HTML5定位==========================================================
-
 
         //=========多窗口的问题==========================================================
         @Override
