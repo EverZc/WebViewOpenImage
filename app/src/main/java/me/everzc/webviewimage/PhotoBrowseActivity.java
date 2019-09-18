@@ -2,8 +2,6 @@ package me.everzc.webviewimage;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.AnimationDrawable;
-import android.os.Build;
 import android.os.Bundle;
 
 import android.text.TextUtils;
@@ -12,14 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.bumptech.glide.Glide;
 
 
@@ -32,10 +28,10 @@ import java.util.List;
  * @Author: ZhangChen
  * @CreateDate: 2019/9/16 10:30
  */
-public class PhotoNewBrowseActivity extends AppCompatActivity {
+public class PhotoBrowseActivity extends AppCompatActivity {
     private int firstDisplayImageIndex = 0;
     private boolean newPageSelected = false;
-    private PinchImageViewBeifen mCurImage;
+    private PinchImageView mCurImage;
     private BaseAnimCloseViewPager imageViewPager;
     private List<String> pictureList;
     private String[] imageUrls = new String[]{};
@@ -101,10 +97,8 @@ public class PhotoNewBrowseActivity extends AppCompatActivity {
             @Override
             public Object instantiateItem(ViewGroup container, int position) {
                 View layout;
-                layout = LayoutInflater.from(PhotoNewBrowseActivity.this).inflate(R.layout.layout_image_detail, null);
-
-                // layout.setOnClickListener(onClickListener);
-                PinchImageViewBeifen pinchImageView = (PinchImageViewBeifen) layout.findViewById(R.id.image_detail);
+                layout = LayoutInflater.from(PhotoBrowseActivity.this).inflate(R.layout.layout_image_detail, null);
+                PinchImageView pinchImageView = (PinchImageView) layout.findViewById(R.id.image_detail);
                 pinchImageView.setOnClickListener(onClickListener);
                 container.addView(layout);
                 layout.setTag(position);
@@ -139,7 +133,6 @@ public class PhotoNewBrowseActivity extends AppCompatActivity {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-                // llLoading.setVisibility(View.VISIBLE);
             }
         });
         imageViewPager.setiAnimClose(new BaseAnimCloseViewPager.IAnimClose() {
@@ -172,7 +165,6 @@ public class PhotoNewBrowseActivity extends AppCompatActivity {
         setImageView(pictureList.get(position));
     }
 
-
     /**
      * 设置图片
      *
@@ -186,11 +178,13 @@ public class PhotoNewBrowseActivity extends AppCompatActivity {
             return;
         }
         canDrag = false;
-        // MyUtils.loadingGlide(PhotoNewBrowseActivity.this,path,mCurImage);
         Glide.with(this).load(path).into(mCurImage);
     }
 
-    // 初始化每个view的image
+    /**
+     * 初始化每个view的image
+     * @param position
+     */
     protected void updateCurrentImageView(final int position) {
         View currentLayout = imageViewPager.findViewWithTag(position);
         if (currentLayout == null) {
@@ -203,10 +197,9 @@ public class PhotoNewBrowseActivity extends AppCompatActivity {
             return;
         }
         flCurLayout = (FrameLayout) currentLayout.findViewById(R.id.fl_actical);
-        mCurImage = (PinchImageViewBeifen) currentLayout.findViewById(R.id.image_detail);
+        mCurImage = (PinchImageView) currentLayout.findViewById(R.id.image_detail);
         imageViewPager.setCurrentShowView(flCurLayout);
     }
-
 
     @Override
     public void finishAfterTransition() {

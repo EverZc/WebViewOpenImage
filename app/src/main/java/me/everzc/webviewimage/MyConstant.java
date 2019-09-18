@@ -5,10 +5,5 @@ package me.everzc.webviewimage;
  */
 
 public class MyConstant {
-
-
    public  static boolean bigbig=false;
-
-
-
 }

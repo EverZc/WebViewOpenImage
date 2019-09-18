@@ -20,15 +20,12 @@ import java.util.List;
 import java.util.Queue;
 
 /**
- * 手势图片控件
+ * 手势图片控件 查看图片详情控件
  *
  */
 @SuppressLint("AppCompatCustomView")
-public class PinchImageViewBeifen extends ImageView {
-
-
+public class PinchImageView extends ImageView {
     ////////////////////////////////配置参数////////////////////////////////
-
     /**
      * 图片缩放动画时间
      */
@@ -44,9 +41,7 @@ public class PinchImageViewBeifen extends ImageView {
      */
     private static final float MAX_SCALE = 4f;
 
-
     ////////////////////////////////监听器////////////////////////////////
-
     /**
      * 外界点击事件
      *
@@ -65,19 +60,14 @@ public class PinchImageViewBeifen extends ImageView {
     public void setOnClickListener(OnClickListener l) {
         //默认的click会在任何点击情况下都会触发，所以搞成自己的
         mOnClickListener = l;
-        LogUtils.e("点击了单机");
     }
 
     @Override
     public void setOnLongClickListener(OnLongClickListener l) {
         //默认的long click会在任何长按情况下都会触发，所以搞成自己的
         mOnLongClickListener = l;
-        LogUtils.e("长安");
     }
-
-
     ////////////////////////////////公共状态获取////////////////////////////////
-
     /**
      * 手势状态：自由状态
      *
@@ -256,7 +246,7 @@ public class PinchImageViewBeifen extends ImageView {
      */
     @Override
     public boolean canScrollHorizontally(int direction) {
-        if (mPinchMode == PinchImageViewBeifen.PINCH_MODE_SCALE) {
+        if (mPinchMode == PinchImageView.PINCH_MODE_SCALE) {
             return true;
         }
         RectF bound = getImageBound(null);
@@ -281,7 +271,7 @@ public class PinchImageViewBeifen extends ImageView {
      */
     @Override
     public boolean canScrollVertically(int direction) {
-        if (mPinchMode == PinchImageViewBeifen.PINCH_MODE_SCALE) {
+        if (mPinchMode == PinchImageView.PINCH_MODE_SCALE) {
             return true;
         }
         RectF bound = getImageBound(null);
@@ -391,10 +381,7 @@ public class PinchImageViewBeifen extends ImageView {
         //重绘
         invalidate();
     }
-
-
     ////////////////////////////////对外广播事件////////////////////////////////
-
     /**
      * 外部矩阵变化事件通知监听器
      */
@@ -411,7 +398,7 @@ public class PinchImageViewBeifen extends ImageView {
          * @see #getCurrentImageMatrix(Matrix)
          * @see #getImageBound(RectF)
          */
-        void onOuterMatrixChanged(PinchImageViewBeifen pinchImageView);
+        void onOuterMatrixChanged(PinchImageView pinchImageView);
     }
 
     /**
@@ -577,17 +564,17 @@ public class PinchImageViewBeifen extends ImageView {
 
     ////////////////////////////////初始化////////////////////////////////
 
-    public PinchImageViewBeifen(Context context) {
+    public PinchImageView(Context context) {
         super(context);
         initView();
     }
 
-    public PinchImageViewBeifen(Context context, AttributeSet attrs) {
+    public PinchImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initView();
     }
 
-    public PinchImageViewBeifen(Context context, AttributeSet attrs, int defStyle) {
+    public PinchImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         initView();
     }
@@ -776,14 +763,14 @@ public class PinchImageViewBeifen extends ImageView {
     private FlingAnimator mFlingAnimator;
 
     private GestureDetector mG=
-            new GestureDetector(PinchImageViewBeifen.this.getContext()
+            new GestureDetector(PinchImageView.this.getContext()
                     , new GestureDetector.SimpleOnGestureListener() {
 
                 @Override
                 public boolean onSingleTapConfirmed(MotionEvent e) {
                     //触发点击
                     if (mOnClickListener != null) {
-                        mOnClickListener.onClick(PinchImageViewBeifen.this);
+                        mOnClickListener.onClick(PinchImageView.this);
                     }
                     LogUtils.e("mG  onSingleTapConfirmed");
                     return false;
@@ -805,7 +792,7 @@ public class PinchImageViewBeifen extends ImageView {
      * <p>
      * 在onTEvent末尾被执行.
      */
-    private GestureDetector mGestureDetector = new GestureDetector(PinchImageViewBeifen.this.getContext(), new GestureDetector.SimpleOnGestureListener() {
+    private GestureDetector mGestureDetector = new GestureDetector(PinchImageView.this.getContext(), new GestureDetector.SimpleOnGestureListener() {
 
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             //只有在单指模式结束之后才允许执行fling
@@ -820,7 +807,7 @@ public class PinchImageViewBeifen extends ImageView {
         public void onLongPress(MotionEvent e) {
             //触发长按
             if (mOnLongClickListener != null) {
-                mOnLongClickListener.onLongClick(PinchImageViewBeifen.this);
+                mOnLongClickListener.onLongClick(PinchImageView.this);
             }
             LogUtils.e("mGestureDetector  onLongPress");
         }
@@ -837,7 +824,7 @@ public class PinchImageViewBeifen extends ImageView {
         public boolean onSingleTapConfirmed(MotionEvent e) {
             //触发点击
             if (mOnClickListener != null) {
-                mOnClickListener.onClick(PinchImageViewBeifen.this);
+                mOnClickListener.onClick(PinchImageView.this);
             }
             LogUtils.e("mGestureDetector  onSingleTapConfirmed");
             return false;
@@ -1349,22 +1336,18 @@ public class PinchImageViewBeifen extends ImageView {
      * 在给定时间内从一个矩阵的变化逐渐动画到另一个矩阵的变化
      */
     private class ScaleAnimator extends ValueAnimator implements ValueAnimator.AnimatorUpdateListener {
-
         /**
          * 开始矩阵
          */
         private float[] mStart = new float[9];
-
         /**
          * 结束矩阵
          */
         private float[] mEnd = new float[9];
-
         /**
          * 中间结果矩阵
          */
         private float[] mResult = new float[9];
-
         /**
          * 构建一个缩放动画
          * <p>
@@ -1410,9 +1393,7 @@ public class PinchImageViewBeifen extends ImageView {
         }
     }
 
-
 ////////////////////////////////防止内存抖动复用对象////////////////////////////////
-
     /**
      * 对象池
      * <p>
@@ -1423,17 +1404,14 @@ public class PinchImageViewBeifen extends ImageView {
      * @param <T> 对象池容纳的对象类型
      */
     private static abstract class ObjectsPool<T> {
-
         /**
          * 对象池的最大容量
          */
         private int mSize;
-
         /**
          * 对象池队列
          */
         private Queue<T> mQueue;
-
         /**
          * 创建一个对象池
          *

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -13,9 +12,6 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-
-
-
 import java.io.File;
 
 /**
@@ -26,17 +22,13 @@ import java.io.File;
 public class Html5WebView extends WebView {
 
     private Context mContext;
-
     private OnProgressChangedListener mProgressChangedListener;
-
     public Html5WebView(Context context) {
         this(context, null);
     }
-
     public Html5WebView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
-
     public Html5WebView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mContext = context;
@@ -112,7 +104,6 @@ public class Html5WebView extends WebView {
     }
 
     public void setupBody(String body) {
-        // loadData(createBody(body),"text/html","UTF-8");
         loadDataWithBaseURL("", createBody(body), "text/html", "UTF-8", "");
     }
 
@@ -143,7 +134,6 @@ public class Html5WebView extends WebView {
                         + "</html>"
                 , body);
     }
-
     WebViewClient webViewClient = new WebViewClient() {
         /**
          * 多页面在同一个WebView中打开，就是不新建activity或者调用系统浏览器打开
@@ -186,11 +176,9 @@ public class Html5WebView extends WebView {
                             "}" +
                             "})()");
         }
-
     };
 
     WebChromeClient webChromeClient = new WebChromeClient() {
-
         //=========HTML5定位==========================================================
         //需要先加入权限
         //<uses-permission android:name="android.permission.INTERNET"/>

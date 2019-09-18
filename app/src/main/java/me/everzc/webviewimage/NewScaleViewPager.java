@@ -39,46 +39,42 @@ public class NewScaleViewPager extends BaseAnimCloseViewPager {
         super(context, attrs);
     }
 
-
-
-
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-
         switch (ev.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
                 LogUtils.e("ScaleView dispatchTouchEvent ACTION_DOWN");
                 mDownX = ev.getRawX();
                 mDownY = ev.getRawY();
-               // LogUtils.e("mDownX : "+mDownX);
-                //LogUtils.e("mDownY : "+mDownY);
+                LogUtils.e("mDownX : " + mDownX);
+                LogUtils.e("mDownY : " + mDownY);
 
             case MotionEvent.ACTION_MOVE:
-              //  LogUtils.e("ev.getPointerCount()"+ev.getPointerCount());
+                LogUtils.e("ev.getPointerCount()" + ev.getPointerCount());
                 if (ev.getPointerCount() >= 2) {
                     LogUtils.e("ev.getPointerCount() > =2  不处理给子View");
                     return false;
                     //如果还没结束缩放模式，但是第一个点抬起了，那么让第二个点和第三个点作为缩放控制点
                 }
-               // LogUtils.e("ev.getRawY() : "+ev.getRawY());
-              //  LogUtils.e("ev.getRawX() : "+ev.getRawX());
+                LogUtils.e("ev.getRawY() : " + ev.getRawY());
+                LogUtils.e("ev.getRawX() : " + ev.getRawX());
                 //计算手指移动距离，大于0表示手指往屏幕下方移动
                 int deltaY = (int) (ev.getRawY() - mDownY);
                 int deltaX = (int) (ev.getRawX() - mDownX);
-               // LogUtils.e("Math.abs(deltaY) : "+Math.abs(deltaY));
-                //LogUtils.e("Math.abs(deltaX) : "+Math.abs(deltaX));
-                if (Math.abs(deltaY)> Math.abs(deltaX)+100){
-                    //LogUtils.e("Y>X");
-                    if (!MyConstant.bigbig){
-                       // LogUtils.e("如果没有被放大直接拦截");
+                LogUtils.e("Math.abs(deltaY) : " + Math.abs(deltaY));
+                LogUtils.e("Math.abs(deltaX) : " + Math.abs(deltaX));
+                if (Math.abs(deltaY) > Math.abs(deltaX) + 100) {
+                    LogUtils.e("Y>X");
+                    if (!MyConstant.bigbig) {
+                        LogUtils.e("如果没有被放大直接拦截");
                         return true;
-                    }else {
-                       // LogUtils.e("如果放大不拦截");
+                    } else {
+                        LogUtils.e("如果放大不拦截");
                         return super.onInterceptTouchEvent(ev);
                     }
 
-                }else {
-                  //  LogUtils.e("不用直接拦截");
+                } else {
+                    LogUtils.e("不用直接拦截");
                     return super.onInterceptTouchEvent(ev);
                 }
 
@@ -93,7 +89,7 @@ public class NewScaleViewPager extends BaseAnimCloseViewPager {
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
 
-        if (currentStatus == STATUS_REBACK){
+        if (currentStatus == STATUS_REBACK) {
             LogUtils.e("ScaleView  STATUS_REBACK");
             return false;
 
@@ -101,7 +97,7 @@ public class NewScaleViewPager extends BaseAnimCloseViewPager {
 
         switch (ev.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
-                //LogUtils.e("ScaleView  ACTION_DOWN");
+                LogUtils.e("ScaleView  ACTION_DOWN");
                 mDownX = ev.getRawX();
                 mDownY = ev.getRawY();
                 addIntoVelocity(ev);
@@ -113,10 +109,10 @@ public class NewScaleViewPager extends BaseAnimCloseViewPager {
                 if (currentPageStatus != SCROLL_STATE_DRAGGING &&
                         deltaY > DRAG_GAP_PX || currentStatus == STATUS_MOVING) {
                     //如果往下移动，或者目前状态是缩放移动状态，那么传入移动坐标，进行对ImageView的操作
-                    //Log.e("ACTION_MOVE下", "下滑动");
-                    if (!MyConstant.bigbig){
+                    LogUtils.e("ACTION_MOVE下", "下滑动");
+                    if (!MyConstant.bigbig) {
                         setupMoving(ev.getRawX(), ev.getRawY());
-                        EventBus.getDefault().post("","framloadinggone");
+                        EventBus.getDefault().post("", "framloadinggone");
                     }
                     return true;
 
@@ -124,9 +120,9 @@ public class NewScaleViewPager extends BaseAnimCloseViewPager {
                 if (currentPageStatus != SCROLL_STATE_DRAGGING &&
                         deltaY < DRAG_GAP_PX_FU) {
                     //如果往下移动，或者目前状态是缩放移动状态，那么传入移动坐标，进行对ImageView的操作
-                    if (!MyConstant.bigbig){
+                    if (!MyConstant.bigbig) {
                         setupMoving(ev.getRawX(), ev.getRawY());
-                        EventBus.getDefault().post("","framloadinggone");
+                        EventBus.getDefault().post("", "framloadinggone");
                     }
                 }
                 if (deltaY <= DRAG_GAP_PX && currentStatus != STATUS_MOVING)
@@ -141,13 +137,10 @@ public class NewScaleViewPager extends BaseAnimCloseViewPager {
                 float vY = computeYVelocity();
                 if (vY >= 1500 || Math.abs(mUpY - mDownY) > screenHeight / 4) {
                     //速度有一定快，或者移动位置超过屏幕一半，那么释放
-
                     if (iAnimClose != null)
-
-                    iAnimClose.onPictureRelease(currentShowView);
+                        iAnimClose.onPictureRelease(currentShowView);
                 } else {
                     setupReback(mUpX, mUpY);
-
                 }
                 break;
         }
@@ -202,32 +195,28 @@ public class NewScaleViewPager extends BaseAnimCloseViewPager {
             return;
         currentStatus = STATUS_MOVING;
 
-       // float deltaX = movingX - mDownX;
+        // float deltaX = movingX - mDownX;
         float deltaY = movingY - mDownY;
         float scale = 1f;
         float alphaPercent = 1f;
         if (deltaY > 0) {
-           // scale = 1 - Math.abs(deltaY) / screenHeight;
+            // scale = 1 - Math.abs(deltaY) / screenHeight;
             //这里是设置背景的透明度，我这是设置移动屏幕一半高度的距离就全透明了。
             alphaPercent = 1 - Math.abs(deltaY) / (screenHeight / 2);
         } else {
-           // scale = 1 - Math.abs(deltaY) / screenHeight;
+            // scale = 1 - Math.abs(deltaY) / screenHeight;
             //这里是设置背景的透明度，我这是设置移动屏幕一半高度的距离就全透明了。
             alphaPercent = 1 - Math.abs(deltaY) / (screenHeight / 2);
         }
-
-
         //ViewHelper.setTranslationX(currentShowView, deltaX);
         ViewHelper.setTranslationY(currentShowView, deltaY);
         setupScale(scale);
         setupBackground(alphaPercent);
     }
 
-
     private void setupScale(float scale) {
         scale = Math.min(Math.max(scale, MIN_SCALE_WEIGHT), 1);
         ViewHelper.setScaleX(currentShowView, scale);
         ViewHelper.setScaleY(currentShowView, scale);
     }
-
 }
