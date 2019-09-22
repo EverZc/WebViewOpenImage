@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String content = "<div  class='article-content' >" +
             "重庆市是我国四大直辖市之一，抗战时期曾为国民政府陪都，位于我国长江上游。重庆有“山城”与“雾都”之称，它四面环山，依山而建，又因地处盆地边缘，两江汇合处，常年雾气朦胧。重庆还被称为“小香港”，是出了名的的不夜城，它的夜景、美食、美女是其三大名片。其实除了这些，重庆的美景也是很值得一游的，最近的抖音更是带红了重庆的很多景点。" +
-            "<br><br>洪崖洞<br><img width=\"638.0\" height=\"425.0\"" +
+            "<br><br>洪崖洞<br><img width=\"1238.0\" height=\"425.0\"" +
             " src=\"https://luzhouapp.oss-cn-shenzhen.aliyuncs.com/15562934317169021B2Bw=638_h=425.0B2B.jpeg\" >" +
             "洪崖洞，原名洪崖门，是古重庆城门之一，历来为军事要塞，也是重庆城的一大胜景。洪崖洞现为国家4A级旅游景区，由纸盐河酒吧街、天成巷巴渝风情街、盛宴美食街和异域风情城市阳台四部分组成。它共有11层，以最具巴渝传统建筑特色的“吊脚楼”风貌为主体，依山沿崖而建，顶层可观江景。<br><br>洪崖洞是重庆历史文化的见证和重庆城市精神的象征，也是重庆网红景点的榜首打卡胜地。洪崖洞是欣赏山城夜景的好地方。夜晚时候灯火通明，灯光从晚上6点开灯，10点熄灯。吊脚楼被灯光环绕，像镀了层金，远远望去，如同宫崎骏的电影《千与千寻》中的不可思议之街，也因此成为网红打卡地。" +
             "<br><br>磁器口古镇<br><img width=\"604.0\" height=\"403.0\" " +
@@ -46,19 +46,16 @@ public class MainActivity extends AppCompatActivity {
         Document mDocument = Jsoup.parse(text);
         //第二步：获取img标签 <img width= "638.0" height= "426.0" src="https://luzhouapp.oss-cn-shenzhen.aliyuncs.com/15562934558998310B2Bw=638_h=426.0B2B.jpeg" >
         Elements imageSrc = mDocument.select("img[src]");
-        //第三步：遍历当前html所有的img标签，并设置内容
+        //第三步：遍历当前html所有的img标签，获取元素 计算宽高并配置懒加载等。
         for (Element element : imageSrc) {
             element.addClass("lazy");
             String imgUrl = element.attr("src"); //获取当前图片的地址
-            String strWidth = element.attr("width"); //获取当前标签图片的宽
-            String strHeight = element.attr("height");//获取当前标签图片的高
-
-            double width = Double.parseDouble(strWidth); //将宽转换为double类型
-            double height = Double.parseDouble(strHeight);//将高转换为double类型
+            double mWidth = Double.parseDouble(element.attr("width")); //获取当前标签图片的宽,并转换为double类型
+            double mHeight = Double.parseDouble(element.attr("height"));//获取当前标签图片的高，并将高转换为double类型
             double widthDp = DensityUtil.           //将宽高转换成 dp
-                    px2dp(MainActivity.this, (float) width);
+                    px2dp(MainActivity.this, (float) mWidth);
             double heightDp = DensityUtil.
-                    px2dp(MainActivity.this, (float) height);
+                    px2dp(MainActivity.this, (float) mHeight);
             double n = widthDp / heightDp;   //宽高比  宽度 / 高度
             WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
             double widthScreen = wm.getDefaultDisplay().getWidth();
@@ -66,10 +63,10 @@ public class MainActivity extends AppCompatActivity {
                     px2dp(MainActivity.this, (float) widthScreen) - 35; //数字变低实际越高 变高越低
             LogUtils.e("screen==== " + wScreenDP);
             double calculateHeight = wScreenDP / n;
-            element.attr("src", "file:///android_asset/ic_picture_default_four.png");
+            element.attr("src", "file:///android_asset/ic_picture_default_four.png");//放置占为图
             element.attr("width", wScreenDP + "")
                     .attr("height", calculateHeight + "");
-            element.attr("data-original", imgUrl);
+            element.attr("data-original", imgUrl);//data-original是图片延迟加载代码,目的就是为了进行懒加载，可以防治占为图
         }
         text = mDocument.toString();
         mWebView.setupBody(text);

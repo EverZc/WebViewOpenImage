@@ -116,8 +116,8 @@ public class Html5WebView extends WebView {
                        /* "<script type=\"text/javascript\" src=\"http://libs.baidu.com/jquery/1.11.1/jquery.min.js\"></script>\n" +
                         "<script type=\"text/javascript\" src=\"http://www.w3cways.com/demo/LazyLoad/js/jquery.lazyload.js\"></script>"+
                        */
-                        "<script type=\"text/javascript\" src=\"http://www.luzhouapp.cn/app_js/jquery.min.js\"></script>\n" +
-                        "<script type=\"text/javascript\" src=\"http://www.luzhouapp.cn/app_js/jquery.lazyload.js\"></script>"+
+                        "<script type=\"text/javascript\" src=\"file:///android_asset/jquery.min.js\"></script>\n" +
+                        "<script type=\"text/javascript\" src=\"file:///android_asset/jquery.lazyload.js\"></script>"+
 
                         "<script type=\"text/javascript\">\n" +
                                 "$(function() {\n" +
