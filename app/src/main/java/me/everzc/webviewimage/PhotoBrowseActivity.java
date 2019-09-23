@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * @Description: 图片详情查看界面
- * @Author: ZhangChen
+ * @Author: Zwj
  * @CreateDate: 2019/9/16 10:30
  */
 public class PhotoBrowseActivity extends AppCompatActivity {

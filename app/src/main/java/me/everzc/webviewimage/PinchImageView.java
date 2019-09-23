@@ -21,7 +21,6 @@ import java.util.Queue;
 
 /**
  * 手势图片控件 查看图片详情控件
- *
  */
 @SuppressLint("AppCompatCustomView")
 public class PinchImageView extends ImageView {
@@ -551,11 +550,11 @@ public class PinchImageView extends ImageView {
     protected float calculateNextScale(float innerScale, float outerScale) {
         float currentScale = innerScale * outerScale;
         if (currentScale < MAX_SCALE) {
-            MyConstant.bigbig = true;
+            MyConstant.BIGBIG = true;
             LogUtils.e("计算双击之后图片接下来应该被缩放的比例   最大了    ");
             return MAX_SCALE;
         } else {
-            MyConstant.bigbig= false;
+            MyConstant.BIGBIG = false;
             LogUtils.e("计算双击之后图片接下来应该被缩放的比例   返回吧    ");
             return innerScale;
         }
@@ -923,8 +922,8 @@ public class PinchImageView extends ImageView {
                     //处理缩放
                     scale(mScaleCenter, mScaleBase, distance, mLastMovePoint);
                     LogUtils.e(" //处理缩放   return true");
-                    LogUtils.e(" bigbig=true;");
-                    MyConstant.bigbig = true;
+                    LogUtils.e(" BIGBIG=true;");
+                    MyConstant.BIGBIG = true;
                    //0.3 return true;
                 }
             }
@@ -1187,7 +1186,7 @@ public class PinchImageView extends ImageView {
         //如果缩放修正后整体导致第二层缩放小于1（就是图片比fit center状态还小），重新修正缩放
         if (outerScale * scalePost < 1f) {
             scalePost = 1f / outerScale;
-            MyConstant.bigbig = false;
+            MyConstant.BIGBIG = false;
             LogUtils.e("  //如果缩放修正后整体导致第二层缩放小于1（就是图片比fit center状态还小），重新修正缩放");
         }
         //如果缩放修正不为1，说明进行了修正
@@ -1234,11 +1233,11 @@ public class PinchImageView extends ImageView {
             //清理临时变量
             MathUtils.matrixGiven(animEnd);
            /* if (mScaleCenter.equals(0,0)){
-                LogUtils.e(" 缩放修正 bigbig=false;");
-                bigbig=false;
+                LogUtils.e(" 缩放修正 BIGBIG=false;");
+                BIGBIG=false;
             }else {
-                LogUtils.e(" 缩放修正 bigbig=true;");
-                bigbig=true;
+                LogUtils.e(" 缩放修正 BIGBIG=true;");
+                BIGBIG=true;
             }*/
 
         }

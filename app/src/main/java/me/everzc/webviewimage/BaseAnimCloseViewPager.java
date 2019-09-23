@@ -14,7 +14,10 @@ import androidx.viewpager.widget.ViewPager;
 
 
 /**
- * Created by Laughing on 2017/7/10.
+ * @描述: ViewPager相关类
+ * @创建时间: 2019-09-21
+ * @作者: 张文靖同学
+ * @简书: https://www.jianshu.com/u/197319888337
  */
 public class BaseAnimCloseViewPager extends ViewPager {
 

@@ -10,11 +10,12 @@ import com.blankj.utilcode.util.LogUtils;
 import com.nineoldandroids.view.ViewHelper;
 
 import org.simple.eventbus.EventBus;
-
 /**
- * Created by Laughing on 2017/7/4.
- * <p/>
- * 只有y轴运动才能放大缩小屏幕，往y轴方向 向上提是放大或者不变，往y轴方向 向下拉是缩小，或者缩小到极限
+ * @描述: 自定义ViewPager,只有y轴运动才能放大缩小屏幕，
+ * 往y轴方向 向上提是放大或者不变，往y轴方向 向下拉是缩小，或者缩小到极限
+ * @创建时间: 2019-09-21
+ * @作者: 张文靖同学
+ * @简书: https://www.jianshu.com/u/197319888337
  */
 public class NewScaleViewPager extends BaseAnimCloseViewPager {
 
@@ -65,7 +66,7 @@ public class NewScaleViewPager extends BaseAnimCloseViewPager {
                 LogUtils.e("Math.abs(deltaX) : " + Math.abs(deltaX));
                 if (Math.abs(deltaY) > Math.abs(deltaX) + 100) {
                     LogUtils.e("Y>X");
-                    if (!MyConstant.bigbig) {
+                    if (!MyConstant.BIGBIG) {
                         LogUtils.e("如果没有被放大直接拦截");
                         return true;
                     } else {
@@ -110,7 +111,7 @@ public class NewScaleViewPager extends BaseAnimCloseViewPager {
                         deltaY > DRAG_GAP_PX || currentStatus == STATUS_MOVING) {
                     //如果往下移动，或者目前状态是缩放移动状态，那么传入移动坐标，进行对ImageView的操作
                     LogUtils.e("ACTION_MOVE下", "下滑动");
-                    if (!MyConstant.bigbig) {
+                    if (!MyConstant.BIGBIG) {
                         setupMoving(ev.getRawX(), ev.getRawY());
                         EventBus.getDefault().post("", "framloadinggone");
                     }
@@ -120,7 +121,7 @@ public class NewScaleViewPager extends BaseAnimCloseViewPager {
                 if (currentPageStatus != SCROLL_STATE_DRAGGING &&
                         deltaY < DRAG_GAP_PX_FU) {
                     //如果往下移动，或者目前状态是缩放移动状态，那么传入移动坐标，进行对ImageView的操作
-                    if (!MyConstant.bigbig) {
+                    if (!MyConstant.BIGBIG) {
                         setupMoving(ev.getRawX(), ev.getRawY());
                         EventBus.getDefault().post("", "framloadinggone");
                     }

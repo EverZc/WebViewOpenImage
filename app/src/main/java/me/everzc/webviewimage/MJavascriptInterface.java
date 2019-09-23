@@ -22,14 +22,10 @@ public class MJavascriptInterface {
 
     @android.webkit.JavascriptInterface
     public void openImage(String img) {
-        for (int i = 0; i < imageUrls.length; i++) {
-            Log.e("图片地址"+i,imageUrls[i].toString());
-        }
         Intent intent = new Intent();
         intent.putExtra("imageUrls", imageUrls);
         intent.putExtra("curImageUrl", img);
         intent.setClass(context, PhotoBrowseActivity.class);
         context.startActivity(intent);
-
     }
 }
