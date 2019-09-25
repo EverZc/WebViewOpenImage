@@ -20,14 +20,7 @@
 |方法名|描述|
 |---|---|
 |delegation(Context context)|创建方法
-|show(String hint)|弹出评论框并填写评论的hint
-|dismiss()|隐藏评论弹出框，并隐藏软键盘
-|setImages(ArrayList<ImageFile> images)|添加图片
-|getAdapterData()|获取当前评论框内的图片
-|getAdapter()|获取弹出框图片的adapter
-|getCommentText()|获取评论的内容
-|clear()|清理评论文本内容以及评论的图片内容
-|appendText(String text)|拼接评论文字
+
 
 ## 使用步骤
 
